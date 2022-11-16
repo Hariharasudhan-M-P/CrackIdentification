@@ -49,15 +49,15 @@ for i in range(len(crack_factor)):
 
 fig,ax1 = plt.subplots(1,1, figsize=(16, 9))
 ax1.plot(e, omega_n)
-ax1.set_title("$\omega_n$ with crack")
-ax1.set_xlabel("Crack Ratio $\\frac{a}{W}$")
+ax1.set_title("Variation of fundamental frequency with crack ratio")
+ax1.set_xlabel("Crack Ratio (e)")
 ax1.set_ylabel("Natural Frequency $\omega_n$")
 
 fig2 , ax2 = plt.subplots(1,1, figsize=(16, 9))
 ax2.plot(e , max_potential,'-o',label="max potential")
 ax2.plot(e,max_kinetic_energy,'-v',label = "max kinetic")
 ax2.set_title("Max Potential and Max Kinetic Energy vs crack ratio")
-ax2.set_xlabel("Crack Ratio $\\frac{a}{W}$")
+ax2.set_xlabel("Crack Ratio (e)")
 ax2.set_ylabel("Energies$")
 ax2.legend()
 plt.show()
