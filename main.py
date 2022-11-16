@@ -5,7 +5,7 @@ import math as math
 plt.style.use('bmh')
 
 #Defining Constants
-E  = 50000000000
+E  = 50000000000.
 m = 150000.
 pi4 = math.pi*math.pi*math.pi*math.pi
 W = 1.
