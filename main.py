@@ -60,6 +60,37 @@ ax2.set_title("Variation of Maximum Potential and Kinetic Energy vs crack ratio"
 ax2.set_xlabel("Crack Ratio (e)")
 ax2.set_ylabel("Energies")
 ax2.legend()
+
+
+def dphi1(x,f0):
+    return (1/1500)*(np.pi/30*np.cos(np.pi*x/30) - 4*np.pi*np.pi*f0/27000*np.sin(4*np.pi/30)*(1-30/4))
+
+def dphi2(x,f0):
+    return (1/1500)*(np.pi/30*np.cos(np.pi*x/30) - 4*np.pi*np.pi*f0/27000*np.sin(4*np.pi/30))
+
+fig3 = plt.figure(figsize=(16,9))
+
+gs = fig3.add_gridspec(1,4)
+ax = fig3.add_subplot(gs[0, 0:3])
+ay = fig3.add_subplot(gs[0, 3])
+
+ax.set_title("Mode Shape slope vs X for crack ratio = .2")
+ay.set_title("Magnified at 4")
+
+ax.set_xlabel("x")
+ax.set_ylabel("slope")
+ay.set_xlabel("x")
+ay.set_ylabel("slope")
+xx1 = np.linspace(0,4,10)
+xx2 = np.linspace(4,30,70)
+ax.plot(xx1,dphi1(xx1,f(.2)),label="$\\frac{\partial\phi_1(x)}{\partial{x}}$")
+ax.plot(xx2,dphi2(xx2,f(.2)),label="$\\frac{\partial\phi_2(x)}{\partial{x}}$")
+ax.legend()
+ay.plot(xx1,dphi1(xx1,f(.2)),label="$\\frac{\partial\phi_1(x)}{\partial{x}}$")
+ay.plot(xx2,dphi2(xx2,f(.2)),label="$\\frac{\partial\phi_2(x)}{\partial{x}}$")
+ay.legend()
+ay.set_xlim(3,5)
+
 plt.show()
 
 
