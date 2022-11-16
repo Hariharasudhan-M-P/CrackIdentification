@@ -29,12 +29,12 @@ def u_max(f0):
     return pi4*E*I*.5/m/l4 * (1 + f0*2*W/L*sinpibl*sinpibl)
 
 #Mode shape before crack
-def phi1(x,f0):
+def phi1sq(x, f0):
     ph = phifactor*(math.sin(math.pi*x/L) - x*b*W/l3*f0*math.pi*math.pi*sinpibl*(1-L/b))
     return ph*ph
 
 #Mode shape after crack
-def phi2(x,f0):
+def phi2sq(x, f0):
     ph =  phifactor*(math.sin(math.pi*x/L) + b*W/l2*f0*math.pi*math.pi*sinpibl*(1-x/L))
     return ph*ph
 
@@ -44,7 +44,7 @@ max_potential = u_max(crack_factor)
 omega_n = np.zeros(len(crack_factor))
 for i in range(len(crack_factor)):
     f0 = crack_factor[i]
-    max_kinetic_energy[i] = .5 * m * (si.quad(phi1, 0, b, args=(f0))[0] + si.quad(phi2, b, L, args=(f0))[0])
+    max_kinetic_energy[i] = .5 * m * (si.quad(phi1sq, 0, b, args=(f0))[0] + si.quad(phi2sq, b, L, args=(f0))[0])
     omega_n[i] = math.sqrt(max_potential[i] / max_kinetic_energy[i])
 
 fig,ax1 = plt.subplots(1,1, figsize=(16, 9))
@@ -60,6 +60,18 @@ ax2.set_title("Variation of Maximum Potential and Kinetic Energy vs crack ratio"
 ax2.set_xlabel("Crack Ratio (e)")
 ax2.set_ylabel("Energies")
 ax2.legend()
+
+
+
+#Mode shape before crack
+def phi1(x, f0):
+    ph = phifactor*(np.sin(np.pi*x/L) - x*b*W/l3*f0*np.pi*np.pi*sinpibl*(1-L/b))
+    return ph
+
+#Mode shape after crack
+def phi2(x, f0):
+    ph =  phifactor*(np.sin(np.pi*x/L) + b*W/l2*f0*np.pi*np.pi*sinpibl*(1-x/L))
+    return ph
 
 
 def dphi1(x,f0):
@@ -90,6 +102,32 @@ ay.plot(xx1,dphi1(xx1,f(.2)),label="$\\frac{\partial\phi_1(x)}{\partial{x}}$")
 ay.plot(xx2,dphi2(xx2,f(.2)),label="$\\frac{\partial\phi_2(x)}{\partial{x}}$")
 ay.legend(fontsize="x-large")
 ay.set_xlim(3,5)
+
+
+
+fig4 = plt.figure(figsize=(16,9))
+
+gs = fig4.add_gridspec(1,4)
+ax = fig4.add_subplot(gs[0, 0:3])
+ay = fig4.add_subplot(gs[0, 3])
+
+ax.set_title("Mode Shape vs X for crack ratio = .2")
+ay.set_title("Magnified at 4")
+
+ax.set_xlabel("x")
+ax.set_ylabel("$\phi(x)$")
+ay.set_xlabel("x")
+ay.set_ylabel("$\phi(x)$")
+xx1 = np.linspace(0,4,10)
+xx2 = np.linspace(4,30,70)
+ax.plot(xx1,phi1(xx1,f(.2)),label="$\phi_1(x)$")
+ax.plot(xx2,phi2(xx2,f(.2)),label="$\phi_2(x)$")
+ax.legend(fontsize="x-large")
+ay.plot(xx1,phi1(xx1,f(.2)),label="$\phi_1(x)$")
+ay.plot(xx2,phi2(xx2,f(.2)),label="$\phi_2(x)$")
+ay.legend(fontsize="x-large")
+ay.set_xlim(3,5)
+
 
 plt.show()
 
