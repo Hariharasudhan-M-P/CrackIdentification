@@ -29,17 +29,17 @@ def f(e):
 
 #Potential Energy
 def u_max(f0):
-    #return pi4*E*I*.5/m/l4 * (1 + f0*2*W/L*sinpibl*sinpibl)
-    return 8*pi4*E*I*.5/m/l4 * (1 + f0*2*W/L*sin2pibl*sin2pibl)
+    return pi4*E*I*.5/m/l4 * (1 + f0*2*W/L*sinpibl*sinpibl)
+    #return 8*pi4*E*I*.5/m/l4 * (1 + f0*2*W/L*sin2pibl*sin2pibl)
     #return 81 * pi4 * E * I * .5 / m / l4 * (1 + f0 * 2 * W / L * sin3pibl * sin3pibl)
 #Mode shape before crack
 def phi1sq(x, f0):
-    ph = phifactor*(math.sin(math.pi*x/L) - x*b*W/l3*f0*math.pi*math.pi*sinpibl*(1-L/b))
+    ph = phifactor*(np.sin(np.pi*x/L) - x*b*W/l3*f0*np.pi*np.pi*sinpibl*(1-L/b))
     return ph*ph
 
 #Mode shape after crack
 def phi2sq(x, f0):
-    ph =  phifactor*(math.sin(math.pi*x/L) + b*W/l2*f0*math.pi*math.pi*sinpibl*(1-x/L))
+    ph =  phifactor*(np.sin(np.pi*x/L) + b*W/l2*f0*np.pi*np.pi*sinpibl*(1-x/L))
     return ph*ph
 
 #Mode shape before crack
@@ -67,7 +67,7 @@ max_potential = u_max(crack_factor)
 omega_n = np.zeros(len(crack_factor))
 for i in range(len(crack_factor)):
     f0 = crack_factor[i]
-    max_kinetic_energy[i] = .5 * m * (si.quad(phi1sq_2, 0, b, args=(f0))[0] + si.quad(phi2sq_2, b, L, args=(f0))[0])
+    max_kinetic_energy[i] = .5 * m * (si.quad(phi1sq, 0, b, args=(f0))[0] + si.quad(phi2sq, b, L, args=(f0))[0])
     omega_n[i] = math.sqrt(max_potential[i] / max_kinetic_energy[i])
 
 fig,ax1 = plt.subplots(1,1, figsize=(16, 9))
@@ -128,28 +128,28 @@ ax1.set_ylabel("Natural Frequency $\omega_n$")
 #
 #
 #
-# fig4 = plt.figure(figsize=(16,9))
-#
-# gs = fig4.add_gridspec(1,4)
-# ax = fig4.add_subplot(gs[0, 0:3])
-# ay = fig4.add_subplot(gs[0, 3])
-#
-# ax.set_title("Mode Shape vs X for crack ratio = .2")
-# ay.set_title("Magnified at 4")
-#
-# ax.set_xlabel("x")
-# ax.set_ylabel("$\phi(x)$")
-# ay.set_xlabel("x")
-# ay.set_ylabel("$\phi(x)$")
-# xx1 = np.linspace(0,4,10)
-# xx2 = np.linspace(4,30,70)
-# ax.plot(xx1,phi1(xx1,f(.2)),label="$\phi_1(x)$")
-# ax.plot(xx2,phi2(xx2,f(.2)),label="$\phi_2(x)$")
-# ax.legend(fontsize="x-large")
-# ay.plot(xx1,phi1(xx1,f(.2)),label="$\phi_1(x)$")
-# ay.plot(xx2,phi2(xx2,f(.2)),label="$\phi_2(x)$")
-# ay.legend(fontsize="x-large")
-# ay.set_xlim(3,5)
+fig4 = plt.figure(figsize=(16,9))
+
+gs = fig4.add_gridspec(1,4)
+ax = fig4.add_subplot(gs[0, 0:3])
+ay = fig4.add_subplot(gs[0, 3])
+
+ax.set_title("Mode Shape vs X for crack ratio = .2")
+ay.set_title("Magnified at 1")
+
+ax.set_xlabel("x")
+ax.set_ylabel("$\phi(x)$")
+ay.set_xlabel("x")
+ay.set_ylabel("$\phi(x)$")
+xx1 = np.linspace(0,1,10)
+xx2 = np.linspace(1,3,70)
+ax.plot(xx1,phi1sq(xx1,f(.2)),label="$\phi_1(x)$")
+ax.plot(xx2,phi2sq(xx2,f(.2)),label="$\phi_2(x)$")
+ax.legend(fontsize="x-large")
+ay.plot(xx1,phi1sq(xx1,f(.2)),label="$\phi_1(x)$")
+ay.plot(xx2,phi2sq(xx2,f(.2)),label="$\phi_2(x)$")
+ay.legend(fontsize="x-large")
+ay.set_xlim(.5,1.5)
 #
 
 plt.show()
