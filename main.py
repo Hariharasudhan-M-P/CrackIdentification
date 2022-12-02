@@ -134,7 +134,7 @@ gs = fig4.add_gridspec(1,4)
 ax = fig4.add_subplot(gs[0, 0:3])
 ay = fig4.add_subplot(gs[0, 3])
 
-ax.set_title("Mode Shape vs X for crack ratio = .2")
+ax.set_title("Slope of Mode Shape vs X for crack ratio = .2")
 ay.set_title("Magnified at 1")
 
 ax.set_xlabel("x")
