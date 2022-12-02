@@ -97,11 +97,11 @@ ax1.set_ylabel("Natural Frequency $\omega_n$")
 #     return ph
 #
 #
-# def dphi1(x,f0):
-#     return (1/1500)*(np.pi/30*np.cos(np.pi*x/30) - 4*np.pi*np.pi*f0/27000*np.sin(4*np.pi/30)*(1-30/4))
-#
-# def dphi2(x,f0):
-#     return (1/1500)*(np.pi/30*np.cos(np.pi*x/30) - 4*np.pi*np.pi*f0/27000*np.sin(4*np.pi/30))
+def dphi1(x,f0):
+    return  phifactor*(np.pi/L*np.cos(np.pi*x/L) - b*np.pi*np.pi*f0/l3*np.sin(b*np.pi/L)*(1-L/b))
+
+def dphi2(x,f0):
+    return  phifactor*(np.pi/L*np.cos(np.pi*x/L) - b*np.pi*np.pi*f0/l3*np.sin(b*np.pi/L))
 #
 # fig3 = plt.figure(figsize=(16,9))
 #
@@ -143,11 +143,11 @@ ay.set_xlabel("x")
 ay.set_ylabel("$\phi(x)$")
 xx1 = np.linspace(0,1,10)
 xx2 = np.linspace(1,3,70)
-ax.plot(xx1,phi1sq(xx1,f(.2)),label="$\phi_1(x)$")
-ax.plot(xx2,phi2sq(xx2,f(.2)),label="$\phi_2(x)$")
+ax.plot(xx1,dphi1(xx1,f(.2)),label="$\phi_1(x)$")
+ax.plot(xx2,dphi2(xx2,f(.2)),label="$\phi_2(x)$")
 ax.legend(fontsize="x-large")
-ay.plot(xx1,phi1sq(xx1,f(.2)),label="$\phi_1(x)$")
-ay.plot(xx2,phi2sq(xx2,f(.2)),label="$\phi_2(x)$")
+ay.plot(xx1,dphi1(xx1,f(.2)),label="$\phi_1(x)$")
+ay.plot(xx2,dphi2(xx2,f(.2)),label="$\phi_2(x)$")
 ay.legend(fontsize="x-large")
 ay.set_xlim(.5,1.5)
 #
