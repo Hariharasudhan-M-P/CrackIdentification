@@ -2,10 +2,10 @@ close all
 clear
 clc
 
-crackRatio = [0,.2,.4,.6,.8];
+crackRatio = [0,.1,.2,.3,.4,.5,.6,.7,.8,.9];
 naturalFrequencys = [];
-for kkk = 1:5
-  crackLength = crackRatio(kkk)*.5;
+for crackR = 1:10
+  crackLength = crackRatio(crackR)*.5;
   area  = .5*.5;
   totalLength = 3;
   numberOfNodes = 30;
@@ -54,7 +54,7 @@ for kkk = 1:5
   KG(1,1) = 1;
   KG(ibcV2,ibcV2) = 1;
   cracked = sqrt(eig(KG,M));
-  naturalFrequencys(kkk) = cracked(3);
+  naturalFrequencys(crackR) = cracked(3);
 end
-crackRatio
+crackRatio'
 naturalFrequencys'
