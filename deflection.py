@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate as si
 import math as math
-plt.style.use('bmh')
+plt.style.use('dark-background')
 
 m = 150000
 L = 30
